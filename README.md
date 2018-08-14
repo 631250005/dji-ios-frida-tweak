@@ -1,14 +1,20 @@
 # Tweak for DJI GO 4
 ## Key features:
-1) Enables FCC on all devices and 5.8 on supported devices (changing country code to US)
-2) Enables BOOST, 32ch
-3) Disables Firmware checking
-4) Forces frequency to 2.3G or 2.5G
+1) Enables FCC on all devices (Force FCC / Country Code US)
+2) Enables 5.8 on supported devices (Country Code US)
+3) Enables 32ch mode
+4) Enables BOOST
+5) Disables Firmware checking
+6) Forces frequency to 2.3G or 2.5G
 
-> Tested on DJI Mavic Pro and DJI Inspire 2
+> Tested on:
+> * Mavic Pro
+> * Mavic Air
+> * Inspire 2
 
 ## Installation How-To
-See: [How to install the Patched DJI GO4 App on iPad or iPhone](http://dji.retroroms.info/howto/apple_ios_patched_dji_go4)
+* [How to install the Patched DJI GO4 App on iPad or iPhone](http://dji.retroroms.info/howto/apple_ios_patched_dji_go4)
+* [DJI FAQ](https://dji.maximlord.ru/)
 
 ## Disable menu:
 **Set needed options to true**
@@ -41,11 +47,16 @@ to:
 1) Disable NFZ Checking
 2) Disable Quiz pop-up
 
-## Contacts
+## My Contacts
 * Email: ddzobov@gmail.com
-* Slack: [DJI Reverse Engineering #ios_ipa_reversing](http://dji-rev.slack.com/#ios_ipa_reversing)
 
 ## Donations are welcome:
-* Paypal: ddzobov@gmail.com
-* Bitcoin: 17w7qpgX4KnXFw1ppipm9khKGWEWsXkN3s
-* Etherium: 0x4d01f1ce8c283e850591322bd3699908d1e2e464
+* **CC (Visa):** 4377 7314 2503 3039
+* **Paypal:** ddzobov@gmail.com
+* **Bitcoin:** 17w7qpgX4KnXFw1ppipm9khKGWEWsXkN3s
+* **Etherium:** 0x4d01f1ce8c283e850591322bd3699908d1e2e464
+
+## Community
+* Slack: [DJI Reverse Engineering #ios_ipa_reversing](https://join.slack.com/t/dji-rev/shared_invite/enQtMjk5OTEyMzcyMjI3LTdlZjY4NzQ5M2M2NmE5ZWM4OTgyNThmZDVmZjdjODE4ODYyNmYwZjYxMDcyYzcxNmZlYzI5ZjI2ZGQ2NGY1ZTc)
+* Telegram Channels
+    * [DJI FAQ](https://t.me/djifaq)
