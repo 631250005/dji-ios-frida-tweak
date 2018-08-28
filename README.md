@@ -60,3 +60,4 @@ to:
 * Slack: [DJI Reverse Engineering #ios_ipa_reversing](https://join.slack.com/t/dji-rev/shared_invite/enQtMjk5OTEyMzcyMjI3LTdlZjY4NzQ5M2M2NmE5ZWM4OTgyNThmZDVmZjdjODE4ODYyNmYwZjYxMDcyYzcxNmZlYzI5ZjI2ZGQ2NGY1ZTc)
 * Telegram Channels
     * [DJI FAQ](https://t.me/djifaq)
+    * [DJI Secrets (Секреты DJI)](https://t.me/djisecret)
