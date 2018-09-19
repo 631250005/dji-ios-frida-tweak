@@ -2,14 +2,13 @@ if (ObjC.available) {
   console.log('[*] Tweak launched');
 
   var config = {
-    version: 0.21,
+    version: 0.22,
     debug: false,
-    force_fcc: false,
+    country_code_us: false,
     force_boost: false,
     force_2_3_G: false,
     force_2_5_G: false,
     illegal_channels: false,
-    country_code_us: true,
     disable_fw_upgrade: true,
     disable_nfz_upgrade: true
   };
@@ -44,7 +43,7 @@ if (ObjC.available) {
             retType: 'void',
             argTypes: ['object'],
             implementation: function(){
-              if(typeof action_desc.callback == 'function') {
+              if(typeof action_desc.callback === 'function') {
                 action_desc.callback();
               }
               
@@ -99,7 +98,7 @@ if (ObjC.available) {
     modify_implementation(class_name, method_name, {
       result: function(original_value) {
         if(!toggle || (typeof toggle === 'function' && toggle())) {
-          if(original_value != new_value) {
+          if(original_value !== new_value) {
             console.log('[*] Modified ' + class_name + '[' + method_name + '] value from ' + original_value + ' to ' + new_value);
 
             if(config.debug) {
@@ -148,7 +147,7 @@ if (ObjC.available) {
           ]);
         }
 
-        if(typeof callback == 'function') {
+        if(typeof callback === 'function') {
           callback(original_value);
         }
 
@@ -176,6 +175,7 @@ if (ObjC.available) {
   function interaction() {
     var welcome_message = [
       'Author: ddzobov@gmail.com',
+      'Github: https://github.com/ddzobov/dji-ios-frida-tweak/',
       'Slack: https://dji-rev.slack.com/#ios_ipa_reversing',
       '',
       'P.S. Donations to PayPal are welcome :)'
@@ -186,29 +186,29 @@ if (ObjC.available) {
         title: 'Configure',
         preferred: true,
         callback: function() {
-          alert('Choose mode', 'Increase RC and Video Transmission power', [
+          alert('Change country to US?', 'Increase RC and Video Transmission power (FCC)', [
             {
-              title: 'Force FCC',
+              title: 'Yes (enables FCC and 5.8G)',
               preferred: true,
               callback: function() {
-                console.log('[*] Enabled Force FCC');
-                config.force_fcc = true;
+                console.log('[*] Changed country in US');
+                config.country_code_us = true;
               }
             },
             {
-              title: 'CE in EU, FCC in US (default)'
+              title: 'No (default)'
             }
           ]);
 
-          alert('Enable BOOST?', 'Boost Transmission power', [
+          alert('Enable BOOST?', 'Boosts Transmission power (use with caution!)', [
             {
               title: 'No (default)',
               preferred: true
             },
             {
-              title: 'Yes (use with caution)',
+              title: 'Yes (dangerous)',
               callback: function() {
-                console.log('[*] Enabled Force BOOST');
+                console.log('[*] Enabled BOOST');
                 config.force_boost = true;
               }
             }
@@ -228,20 +228,20 @@ if (ObjC.available) {
             }
           ]);
 
-          alert('Change frequency?', 'Choose frequency', [
+          alert('Change frequency?', 'Change frequency for reduce interference (use with caution!)', [
             {
-              title: '2.4G (default, multiple channels)',
+              title: 'No (2.4G/5.8G, default)',
               preferred: true,
             },
             {
-              title: '2.3G (single channel)',
+              title: 'Force 2.3G (single channel)',
               callback: function() {
                 console.log('[*] Enabled Force 2.3G');
                 config.force_2_3_G = true;
               }
             },
             {
-              title: '2.5G (LTE, single channel)',
+              title: 'Force 2.5G (LTE, single channel)',
               callback: function() {
                 console.log('[*] Enabled Force 2.5G');
                 config.force_2_5_G = true;
@@ -251,7 +251,7 @@ if (ObjC.available) {
         }
       },
       {
-        title: 'Skip'
+        title: 'Disable Tweak'
       }
     ]);
   }
@@ -260,13 +260,14 @@ if (ObjC.available) {
   modify_value('DJIAppForceUpdateManager', '- hasChecked', 1, function(){ return config.disable_fw_upgrade; });
   modify_value('DJIUpgradeNotifyViewModel', '- notifyHidden', 1, function(){ return config.disable_fw_upgrade; });
 
+  /* Disable Quiz */
+  modify_value('DJIQuizModel', '- shouldShow', 0);
+  modify_value('DJIQuizModel', '- showwithskip', 1);
+
   /* Change country code to US */
   modify_arguments('DJICountryCodeProviderLogic', '- setCountryCode:withSource:', function(args){
       args[2] = ptr(ObjC.classes.NSString.stringWithString_('US'));
   }, function(){ return config.country_code_us; });
-
-  /* Force FCC */
-  modify_value('DJIAppSettings', '- sdr_force_fcc', 1, function(){ return config.force_fcc; });
 
   /* Force BOOST */
   modify_value('DJIAppSettings', '- sdr_force_boost', 1, function(){ return config.force_boost; });
